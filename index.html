@@ -1,32 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>RadioBEST</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="auth-container">
     <h2>RadioBEST Login</h2>
-    <input type="email" id="email" placeholder="E-Mail" />
-    <input type="password" id="password" placeholder="Passwort" />
-    <button onclick="login()">Login</button>
-    <button onclick="register()">Registrieren</button>
+    <input id="email" placeholder="E-Mail" type="email" />
+    <input id="password" placeholder="Passwort" type="password" />
+    <div class="auth-buttons">
+      <button onclick="login()">Anmelden</button>
+      <button onclick="register()">Registrieren</button>
+    </div>
   </div>
 
   <div id="app" class="hidden">
-    <h1>🎧 RadioBEST</h1>
-    <button onclick="logout()">Logout</button>
-    <div id="stations"></div>
-    <h2>🎵 Favoriten</h2>
-    <ul id="favorites"></ul>
-    <audio id="player" controls></audio>
+    <header>
+      <h1>🎧 RadioBEST</h1>
+      <input type="text" id="search" placeholder="Radiosender suchen..." oninput="searchStations(this.value)">
+      <button onclick="logout()">Logout</button>
+    </header>
+
+    <section id="stations-section">
+      <h2>🌍 Sender</h2>
+      <div id="stations"></div>
+    </section>
+
+    <section id="favorites-section">
+      <h2>⭐ Favoriten</h2>
+      <ul id="favorites"></ul>
+    </section>
+
+    <footer>
+      <audio id="player" controls autoplay></audio>
+    </footer>
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

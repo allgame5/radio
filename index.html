@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RadioBEST</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <div id="auth-container">
+    <h2>RadioBEST Login</h2>
+    <input type="email" id="email" placeholder="E-Mail" />
+    <input type="password" id="password" placeholder="Passwort" />
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Registrieren</button>
+  </div>
+
+  <div id="app" class="hidden">
+    <h1>🎧 RadioBEST</h1>
+    <button onclick="logout()">Logout</button>
+    <div id="stations"></div>
+    <h2>🎵 Favoriten</h2>
+    <ul id="favorites"></ul>
+    <audio id="player" controls></audio>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

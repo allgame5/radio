@@ -1,11 +1,12 @@
 // Firebase-Konfiguration (ersetze durch deine echten Werte)
 const firebaseConfig = {
-  apiKey: "DEINE_API_KEY",
-  authDomain: "DEIN_AUTH_DOMAIN",
-  projectId: "DEIN_PROJECT_ID",
-  storageBucket: "DEIN_STORAGE_BUCKET",
-  messagingSenderId: "DEIN_SENDER_ID",
-  appId: "DEINE_APP_ID"
+  apiKey: "AIzaSyDBT9CEUfq_n11cbN0S7uCoO6cDUoHYvhg",
+  authDomain: "radio-f99dc.firebaseapp.com",
+  projectId: "radio-f99dc",
+  storageBucket: "radio-f99dc.firebasestorage.app",
+  messagingSenderId: "350420303935",
+  appId: "1:350420303935:web:87b25e38f0137a70bcf88a",
+  measurementId: "G-LJD8W3LXTR"
 };
 
 firebase.initializeApp(firebaseConfig);

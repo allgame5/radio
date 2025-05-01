@@ -21,14 +21,6 @@ const stationsDiv = document.getElementById('stations');
 const player = document.getElementById('player');
 const favoritesList = document.getElementById('favorites');
 
-const stations = [
-  { name: "Radio Paradise", stream: "https://stream.radioparadise.com/mp3-192" },
-  { name: "Chillhop", stream: "https://stream.zeno.fm/fh9w94c2ywzuv" },
-  { name: "NDR 2", stream: "https://ndr-ndr2-niedersachsen.cast.addradio.de/ndr/ndr2/niedersachsen/mp3/128/stream.mp3" },
-  { name: "BBC Radio 1", stream: "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p" },
-  { name: "Deutschlandfunk", stream: "https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3" }
-];
-
 let user = null;
 
 auth.onAuthStateChanged(u => {
@@ -36,7 +28,7 @@ auth.onAuthStateChanged(u => {
   if (user) {
     authContainer.classList.add('hidden');
     app.classList.remove('hidden');
-    loadStations();
+    searchStations('pop');
     loadFavorites();
   } else {
     authContainer.classList.remove('hidden');
@@ -58,24 +50,31 @@ function logout() {
   auth.signOut();
 }
 
-function loadStations() {
-  stationsDiv.innerHTML = "";
-  stations.forEach(station => {
-    const btn = document.createElement('button');
-    btn.textContent = station.name;
-    btn.onclick = () => {
-      player.src = station.stream;
-      player.play();
-      saveFavorite(station);
-    };
-    stationsDiv.appendChild(btn);
-  });
+function searchStations(searchTerm = "") {
+  fetch(`https://de1.api.radio-browser.info/json/stations/search?name=${encodeURIComponent(searchTerm)}&limit=30`)
+    .then(res => res.json())
+    .then(data => {
+      stationsDiv.innerHTML = "";
+      data.forEach(station => {
+        const btn = document.createElement('button');
+        btn.textContent = station.name;
+        btn.onclick = () => {
+          player.src = station.url_resolved;
+          player.play();
+          saveFavorite(station.name, station.url_resolved);
+        };
+        stationsDiv.appendChild(btn);
+      });
+    })
+    .catch(err => {
+      stationsDiv.innerHTML = "<p>Fehler beim Laden der Radiosender.</p>";
+    });
 }
 
-function saveFavorite(station) {
+function saveFavorite(name, stream) {
   if (!user) return;
   db.collection("favorites").doc(user.uid).set({
-    [station.name]: station.stream
+    [name]: stream
   }, { merge: true });
 }
 
